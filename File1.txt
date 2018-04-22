@@ -1,0 +1,60 @@
+CPSC 420
+Spring 2018
+Program 3: Huffman Encoding
+Partners
+You may have 0-2 partners for this program.
+Introduction
+As you know, most text files use one or two bytes to store each character. Your job is to read in different files to see how many bits you can save using Huffman Encoding. You should have 4 input files:
+this assignment, at http://www.pcs.cnu.edu/~lambert/Classes/cpsc420/420p3.html.
+A book of your choosing (indicate in a comment which book you chose). I recommend that you look at The Gutenberg Project at http://www.gutenberg.org/, but you may use any non-copyrighted book longer than 120,000 characters.
+Your Huffman.java program.
+A file with one line: A_DEAD_DAD_CEDED_A_BAD_BABE_A_BEADED_ABACA_BED
+All files should be local to your directory, and opened using relative addressing.
+Huffman.java
+Your program should have 3 classes. The driver should be named Huffman.java. This class should have a main method that calls the huffmanEncode method four times, one for each file. huffmanEncode should accept a String, the name of the file to be read.
+Reports
+Huffman.java should produce two reports, a summary, and a detail report. For the summary report, you may want to store summary data in static fields. Here are the reports for the file containing: A_DEAD_DAD_CEDED_A_BAD_BABE_A_BEADED_ABACA_BED from Huffman Encoding Wikipedia (with the addition of a newline character at the end of the line). Format the output appropriately (spaced correctly and with 2 decimal points for doubles).
+Name TotalChars DiffChars MaxCodeLen AveCodeLen FileLen ByteFileLen HuffmanReduction
+wiki         47         7          5       2.60     122         376         32.45%
+Here is how each of these numbers was calculated:
+TotalChars	Total number of characters read from the file
+DiffChars	The total number of different characters (for the file above, A, B, C, D, E, _ and newline).
+MaxCodeLen	The longest code (for the file above, that is C or the new line, both of which are 5 bits long)
+AveCodeLen	This is total length of the file (from the next column) divided by the total number of characters (note: this is different from how Chapter 9 calculates the average, which is based on the Encoding scheme, not the actual coded file)
+FileLen	This is the total length of the file (each character times the bit length of each character)
+ByteFileLen	The number of total characters * 8 (the number of bits in the file if each character is encoded as 8 bits)
+HuffmanReduction	The size of the reduced file compared to a file with bytes for characters: FileLen / ByteFileLen * 100
+You should also have a detailed report for each file which prints each character, its encoding, and its Huffman code. Here is the long report for the Wikipedia example.
+
+Char Freq Code
+A:   11   10	 
+B:    6	  1111	 
+C:    2	  11101 
+D:   10	  00	 
+E:    7	  110	 
+{NL}: 1	  11100  /* Note: It is ok to print a new line for this. */   
+_:   10	  01    
+HuffmanCoding.java
+You should also have a HuffmanCoding class that creates a priority queue of Nodes. The PriorityQueue instance variable should be initalized to contain a Leaf Node for each different character. This priority queue should be transformed into a Huffman encoded tree by removing the first two nodes then forming a new InternalNode with a total weight of the two removed nodes. This process is modeled on Wikipedia for the above example. HuffmanCoding should also create a lookup table (I used a HashMap) for each character and each code. The lookup table should look like this for the Wikipedia example (with the addition of a new line; you may include this or not).
+Character	Code
+A	10
+B	1111
+C	11101
+D	00
+E	110
+{NL}	11100
+_	01
+Node.java and subclasses
+You should have a Node class with two subclasses. The (minimal) APIs for those classes are here (you may wish to add additional methods):
+Node
+Leaf
+InternalNode
+Node should be an abstract class that implements the Comparable Interface (because PriorityQueues must have elements that are Comparable) with 1 protected field, weight. Note: I have other methods in my classes. You can implement the classes completely differently or not use them at all, but you must use a PriorityQueue instance variable in HuffmanCoding. The Leaf class should have two instance variables: the character and its code. The code should be a bit code, but to make it easier to manipulate, we will store these codes as Strings (so A, above, would have a code of "10"). The InternalNode class should have a left and right tree, both of type Node.
+References
+You may use any references, but you must cite them. You may find the Huffman Coding Wikipedia page helpful.
+Documentation
+Include a comment with all partners' names and what your program does. Indicate in the comment how long each class took to write and to test. If anybody helped you on the program, write a note about how they helped. If you helped anybody or received help, include a comment about that. You should use the Empty Hands policy when writing the program. Make sure each method has javadoc comments with @param and @return tags for each method, and @author tag for the whole program.
+ScreenShots
+Take a screenshot of your program running, and generating the output specified above. To capture a window or screen, follow the directions at this web page.
+Submitting the program
+Submit to scholar the following (unzipped) files: Huffman.java, Node.java, Leaf.java, InternalNode.java, HuffmanCoding.java, screenshot. Make sure none of your file names have spaces in them. If you have partners, 1 partner should submit everything. I will not grade files if they are split across partners.
